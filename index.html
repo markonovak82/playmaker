@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Playmaker</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <meta charset="UTF-8">
+
+    <link rel="icon"       type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" type="text/css"     href="style.css">
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    
+    <script type="text/javascript" src="js/playmaker.js"></script>
+    <script type="text/javascript" src="js/field.js"></script>
+    <script type="text/javascript" src="js/player.js"></script>
+    <script type="text/javascript" src="js/person.js"></script>
+    <script type="text/javascript" src="js/route.js"></script>
+    <script type="text/javascript" src="js/formation.js"></script>
+    <script type="text/javascript" src="js/play.js"></script>
+    
+    <script type="text/javascript">
+    $(document).ready(function () {
+        pm = new Playmaker();
+        pm.init();
+    });
+    </script>
+</head>
+<body>
+    <div id="container">
+        <canvas id="field-canvas" width="500" height="1400"></canvas>
+        <canvas id="players-canvas" width="500" height="1400"></canvas>
+    </div>
+</body>
+</html>

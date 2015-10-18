@@ -1,0 +1,26 @@
+body {
+    padding: 0;
+    margin: 100px 0;
+    text-align: center;
+    background-color: #5abf69;
+}
+
+    #container {
+        margin: 0 auto;
+        width: 540px;
+        height: 1440px;
+        position: relative;
+        background-color: white;
+    }
+
+    #field-canvas,
+    #players-canvas {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        border: 1px solid white;
+    }
+
+    #field-canvas {
+        background-color: #42a74c;
+    }

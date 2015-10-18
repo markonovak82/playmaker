@@ -1,0 +1,26 @@
+[{
+    "id"           : "tomaz",
+    "name"         : "Tomaž Prijanovič",
+    "speed"        : 92,
+    "acceleration" : 100
+},{
+    "id"           : "marko",
+    "name"         : "Marko Novak",
+    "speed"        : 88,
+    "acceleration" : 90
+},{
+    "id"           : "klemen",
+    "name"         : "Klemen Erhatič",
+    "speed"        : 100,
+    "acceleration" : 83
+},{
+    "id"           : "anton",
+    "name"         : "Anton Svetin",
+    "speed"        : 85,
+    "acceleration" : 65
+},{
+    "id"           : "uros",
+    "name"         : "Uroš Hribar",
+    "speed"        : 90,
+    "acceleration" : 83
+}]
