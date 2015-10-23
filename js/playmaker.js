@@ -5,45 +5,81 @@ function Playmaker () {
     this.$players = $('#players-canvas');
     this.playersCtx = this.$players[0].getContext('2d');
 
-    this.tick = this.tick.bind(this);
+    this.$formationBtn = $('#formation');
+    this.$playBtn = $('#play');
+    this.$sideBtn = $('#side');
+    this.$qbBtn = $('#qb');
+    this.$positionBtn = $('#position');
+    this.$setBtn = $('#set');
+    this.$animateBtn = $('#animate');
+
+    this.tick    = this.tick.bind(this);
+    this.set     = this.set.bind(this);
+    this.animate = this.animate.bind(this);
 
     this.people = {};
     this.players = {};
 
     this.animating = false;
+    this.playersLoaded = false;
+    this.formationsLoaded = false;
 }
 
 Playmaker.prototype.init = function () {
-    // create players
-    $.getJSON('/people.json', function (data) {
-        data.forEach(function (person) {
-            this.people[person.id] = new Person({
-                name         : person.name,
-                speed        : person.speed,
-                acceleration : person.acceleration
-            });
-        }, this);
+    if (!this.playersLoaded) {
+        $.getJSON('/people.json', function (data) {
+            data.forEach(function (person) {
+                this.people[person.id] = new Person({
+                    name         : person.name,
+                    speed        : person.speed,
+                    acceleration : person.acceleration
+                });
+            }, this);
 
-        // create and render field
-        this.field = new Field();
+            this.playersLoaded = true;
+        }.bind(this));
+    }
 
-        // create and render formation
-        this.formation = new Formation({
-            name  : 'spread',
-            side  : 'right',
-            qb    : 'shotgun',
-            start : 14
-        });
+    if (!this.formationsLoaded) {
+        $.getJSON('/formations.json', function (data) {
+            this.formations = data;
 
-        // create and/or render play
-        this.play = new Play(true, {
-            center : 'up',
-            qb     : null,
-            wrx    : 'up',
-            wry    : 'up',
-            slot   : 'up'
-        });
-    }.bind(this));
+            for (var formation in data) {
+                this.$formationBtn.append($('<option></option>').attr('value', formation).text(formation));
+            }
+
+            this.formationsLoaded = true;
+        }.bind(this));
+    }
+
+    this.$setBtn.click(this.set);
+    this.$animateBtn.click(this.animate);
+
+    this.field = new Field();
+};
+
+Playmaker.prototype.set = function () {
+    if (!this.playersLoaded && !this.formationsLoaded) {
+        return;
+    }
+
+    this.reset();
+
+    this.formation = new Formation({
+        name  : this.$formationBtn.val(),
+        side  : this.$sideBtn.val(),
+        qb    : this.$qbBtn.val(),
+        start : this.$positionBtn.val()
+    });
+
+    // rethink how will plays work
+    this.play = new Play(true, {
+        qb     : null,
+        center : 'up',
+        wrx    : 'up',
+        wry    : 'up',
+        slot   : 'up'
+    });
 };
 
 Playmaker.prototype.animate = function () {

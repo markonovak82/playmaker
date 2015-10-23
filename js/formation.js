@@ -27,70 +27,41 @@ function Formation (options) {
         }),
     };
 
-    this[options.name](options.start, options.side, options.qb);
+    var start = options.start.split(' ');
+    start = (start[0] === 'own' ? 10 + 50 - parseInt(start[1], 10) : 10 + parseInt(start[1], 10));
+
+    this.update(options.name, start, options.side, options.qb);
     this.render();
 }
+
+Formation.prototype.update = function (name, start, side, qb) {
+    for (var player in pm.players) {
+        var x = 0, y = 0,
+            playerData = pm.formations[name].positions[player];
+
+        if (player === 'qb') {
+            if (typeof playerData.x === 'object') {
+                x = playerData.x[qb];
+            }
+            if (typeof playerData.y === 'object') {
+                y = playerData.y[qb];
+            }
+        } else {
+            if (typeof playerData.x === 'object') {
+                x = playerData.x[side];
+            }
+
+            if (typeof playerData.y === 'object') {
+                y = playerData.y[side];
+            }
+        }
+
+        pm.players[player].setPosition(250 + (x || playerData.x), (start * 20) + (y || playerData.y));
+    }
+};
 
 Formation.prototype.render = function () {
     for (var player in pm.players) {
         pm.players[player].render();
     }
-};
-
-Formation.prototype.spread = function (start, side, qb) {
-    pm.players.center.setPosition(250, 200 + start * 20);
-    pm.players.qb.setPosition(250, (200 + start * 20) + (qb === 'under' ? 30 : 80));
-    pm.players.wrx.setPosition(80, 200 + start * 20);
-    pm.players.wry.setPosition(460, 200 + start * 20);
-    pm.players.slot.setPosition(side === 'left' ? 140 : 360, 200 + start * 20);
-};
-
-Formation.prototype.bunch = function (start, side, qb) {
-    pm.players = {
-        center: new Player(this.pm, {
-            x      : 250,
-            y      : 200 + start * 20,
-            color  : 'yellow',
-            label  : 'C',
-            route  : new Route(this.pm, { player: 'center', route: 'out' }),
-            speed  : 80,
-            radius : 10
-        }),
-        qb: new Player(this.pm, {
-            x      : 250,
-            y      : (200 + start * 20) + (qb === 'under' ? 30 : 80),
-            color  : 'gray',
-            label  : 'Q',
-            route  : new Route(this.pm, { player: 'qb' }),
-            speed  : 80,
-            radius : 10
-        }),
-        wrx: new Player(this.pm, {
-            x      : side === 'left' ? 190 : 220,
-            y      : 200 + start * 20,
-            color  : 'red',
-            label  : 'X',
-            route  : new Route(this.pm, { player: 'wrx', route: 'shortCurl' }),
-            speed  : 90,
-            radius : 10
-        }),
-        wry: new Player(this.pm, {
-            x      : side === 'left' ? 280 : 310,
-            y      : 200 + start * 20,
-            color  : 'brown',
-            label  : 'Y',
-            route  : new Route(this.pm, { player: 'wry', route: 'quickIn' }),
-            speed  : 90,
-            radius : 10
-        }),
-        slot: new Player(this.pm, {
-            x      : side === 'left' ? 220 : 280,
-            y      : 200 + start * 20,
-            color  : 'pink',
-            label  : 'S',
-            route  : new Route(this.pm, { player: 'slot', route: 'skinyPost' }),
-            speed  : 100,
-            radius : 10
-        }),
-    };
 };

@@ -26,6 +26,33 @@
     </script>
 </head>
 <body>
+    <div id="menu">
+        <select id="formation" name="formation" title="Select formation">
+            <option>Select formation</option>
+        </select>
+
+        <select id="side" name="side">
+            <option>Select side</option>
+            <option value="left">Left</option>
+            <option value="right">Right</option>
+        </select>
+        
+        <select id="play" name="play" title="Select play">
+            <option>Select play</option>
+        </select>
+
+        <select id="qb" name="qb">
+            <option>Select QB position</option>
+            <option value="under">Under</option>
+            <option value="shotgun">Shotgun</option>
+        </select>
+
+        <input type="text" id="position" name="position" value="" placeholder="Field position">
+
+        <button type="button" id="set" name="set">Set</button>
+        <button type="button" id="animate" name="animate">Animate</button>
+    </div>
+
     <div id="container">
         <canvas id="field-canvas" width="500" height="1400"></canvas>
         <canvas id="players-canvas" width="500" height="1400"></canvas>

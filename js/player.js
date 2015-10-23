@@ -8,16 +8,16 @@ function Player (options) {
     }
 
     // part of the route
-    this.cut = 0;
+    this.section = 0;
 
     // route duration
     this.time = 0;
 
-    // 200px/s ~ 10m/s = max speed of 100
-    this.speedFactor = 200;
+    // 170px/s ~ 8.5m/s = max speed of 100
+    this.speedFactor = 170;
 
-    // 150px/s ~ 7.5m/s = max acceleration of 100
-    this.accelerationFactor = 150;
+    // 240px/s ~ 12m/s = max acceleration of 100
+    this.accelerationFactor = 240;
 }
 
 Player.prototype.update = function (elapsed) {
@@ -27,8 +27,8 @@ Player.prototype.update = function (elapsed) {
 
     this.time += elapsed;
 
-    var rx           = this.route.coords[0].x,
-        ry           = this.route.coords[0].y,
+    var rx           = this.position.x + this.route.sections[this.section].x,
+        ry           = this.position.y + this.route.sections[this.section].y,
         acceleration = this.accelerationFactor * (this.person.acceleration / 100),
         maxSpeed     = this.speedFactor * (this.person.speed / 100),
         speed        = Math.min(acceleration * (this.time / 1000), maxSpeed),
@@ -36,15 +36,17 @@ Player.prototype.update = function (elapsed) {
         isXPositive  = rx > this.position.x,
         isYPositive  = ry > this.position.y;
 
-    if (rx !== this.position.x)
+    if (rx !== this.position.x) {
         this.x = Math[isXPositive ? 'min' : 'max'](this.x + pxPerFrame * (isXPositive ? 1 : -1), rx);
+    }
 
-    if (ry !== this.position.y)
+    if (ry !== this.position.y) {
         this.y = Math[isYPositive ? 'min' : 'max'](this.y + pxPerFrame * (isYPositive ? 1 : -1), ry);
+    }
 
-    if (ry === this.y && this.label === 'Q' && !this.printed) {
-        this.printed = true;
-        console.log(this.time);
+    if (this.x === rx && this.y === ry) {
+        console.log(this.time)
+        this.section += 1;
     }
 };
 

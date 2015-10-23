@@ -8,19 +8,19 @@ function Route (route, player) {
 }
 
 Route.prototype.render = function () {
-    var ctx = pm.fieldCtx;
+    // var ctx = pm.fieldCtx;
 
-    ctx.beginPath();
-    ctx.moveTo(this.player.x, this.player.y);
+    // ctx.beginPath();
+    // ctx.moveTo(this.player.x, this.player.y);
     
-    this.coords.forEach(function (point) {
-        ctx.lineTo(point.x, point.y);
-    });
+    // this.coords.forEach(function (point) {
+    //     ctx.lineTo(point.x, point.y);
+    // });
 
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = 'rgba(255, 255, 0, 1)';
-    ctx.stroke();
-    ctx.closePath();
+    // ctx.lineWidth = 2;
+    // ctx.strokeStyle = 'rgba(255, 255, 0, 1)';
+    // ctx.stroke();
+    // ctx.closePath();
 };
 
 Route.prototype.quickIn = function (player) {
@@ -36,23 +36,6 @@ Route.prototype.quickIn = function (player) {
         },{
             x: player.x + (isLeft ? 500 - 20 - player.x : -player.x + 20),
             y: player.y - 60
-        }
-    ];
-};
-
-Route.prototype.out = function (player) {
-    var isLeft = player.x < 250;
-
-    // za vsak step v routu dodaj na kaksno hitrost more zabremzat igralec
-    // oziroma za kolk se more zabremzat da ga spelje
-
-    this.coords = [
-        {
-            x: player.x + (isLeft ? 100 : -100),
-            y: player.y - 120
-        },{
-            x: player.x + (isLeft ? 500 - 20 - player.x : -player.x + 20),
-            y: player.y - 120
         }
     ];
 };
@@ -88,11 +71,35 @@ Route.prototype.skinyPost = function (player) {
     ];
 };
 
+Route.prototype.out = function (player) {
+    var isLeft = player.x < 250;
+
+    this.fn = function (x, y, distance) {
+        var newX, newY;
+
+        if (y > player.position.y - 100) {
+            newX = x;
+            newY = y - distance;
+        } else {
+            player.
+            newX = Math.min(x + (isLeft ? -distance : distance), 490);
+            newY = y;
+        }
+
+        return {
+            x: newX,
+            y: newY
+        }
+    };
+};
+
 Route.prototype.up = function (player) {
-    this.coords = [
+    this.sections = [
         {
-            x: player.x,
-            y: 20
+            x     : 0,
+            y     : -player.y + 10,
+            speed : 0,
+            delay : 0
         }
     ];
 };
