@@ -1,7 +1,3 @@
-
-// IDEA!!!! ... do all routes with straight lines (vertical, horizontal, diagonal)
-// specify speed dropoff and delay (needed for motions and timings) for each segment
-
 function Playmaker () {
     this.$field = $('#field-canvas');
     this.fieldCtx = this.$field[0].getContext('2d');
