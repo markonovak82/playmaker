@@ -16,5 +16,41 @@
             "wry"    : { "x" : 210, "y" : 0 },
             "slot"   : { "x" : 0, "y" : 130 }
         }
+    },
+    "option": {
+        "positions" : {
+            "qb"     : { "x" : 0, "y" : 80 },
+            "center" : { "x" : 0, "y" : 0 },
+            "wrx"    : { "x" : -210, "y" : 0 },
+            "wry"    : { "x" : 210, "y" : 0 },
+            "slot"   : { "x" : { "left" : -30, "right" : 30 }, "y" : 70 }
+        }
+    },
+    "trips": {
+        "positions" : {
+            "qb"     : { "x" : 0, "y" : { "under" : 30, "shotgun" : 80 } },
+            "center" : { "x" : 0, "y" : 0 },
+            "wrx"    : { "x" : { "left" : -210, "right" : 70 }, "y" : 0 },
+            "wry"    : { "x" : { "left" : -70, "right" : 210 }, "y" : 0 },
+            "slot"   : { "x" : { "left" : -140, "right" : 140 }, "y" : 0 }
+        }
+    },
+    "bunch": {
+        "positions" : {
+            "qb"     : { "x" : 0, "y" : { "under" : 30, "shotgun" : 80 } },
+            "center" : { "x" : 0, "y" : 0 },
+            "wrx"    : { "x" : { "left" : -60, "right" : -30 }, "y" : 0 },
+            "wry"    : { "x" : { "left" : 30, "right" : 60 }, "y" : 0 },
+            "slot"   : { "x" : { "left" : -30, "right" : 30 }, "y" : 0 }
+        }
+    },
+    "single": {
+        "positions" : {
+            "qb"     : { "x" : 0, "y" : { "under" : 30, "shotgun" : 80 } },
+            "center" : { "x" : 0, "y" : 0 },
+            "wrx"    : { "x" : { "left" : -210, "right" : -30 }, "y" : 0 },
+            "wry"    : { "x" : { "left" : 30, "right" : 210 }, "y" : 0 },
+            "slot"   : { "x" : { "left" : -30, "right" : 30 }, "y" : 0 }
+        }
     }
 }
